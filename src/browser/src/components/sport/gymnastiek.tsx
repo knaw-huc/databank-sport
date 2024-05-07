@@ -1,6 +1,8 @@
 import React from "react";
 import {SportMenu} from "./sportMenu";
 import {Link} from "react-router-dom";
+import feest from '../../assets/img/bondsfeest1936Amsterdam.jpg';
+import vinkerk from '../../assets/img/propagandacommissieNCGVinkerk.jpg';
 
 
 export function Gymnastiek() {
@@ -117,7 +119,7 @@ export function Gymnastiek() {
                                 <div><img
                                     title="J.J.Th. Bakker, Het Koninklijk Nederlandsch Gymnastiek Verbond. Belangrijke factor voor het herstel der Nederlandse volkskracht. Historische groei, organisatorische opbouw en culturele betekenis (Bergen op Zoom [1947]), p. 99."
                                     alt="J.J.Th. Bakker, Het Koninklijk Nederlandsch Gymnastiek Verbond. Belangrijke factor voor het herstel der Nederlandse volkskracht. Historische groei, organisatorische opbouw en culturele betekenis (Bergen op Zoom [1947]), p. 99."
-                                    src="http://www.historici.nl/media/verenigingsleven_sport/jpg/klein/bondsfeest1936Amsterdam.jpg"/>
+                                    src={feest}/>
                                     <div className="picSubScript">J.J.Th. Bakker, Het Koninklijk Nederlandsch Gymnastiek Verbond. Belangrijke factor voor het herstel der Nederlandse volkskracht. Historische groei, organisatorische opbouw en culturele betekenis (Bergen op Zoom [1947]), p. 99.</div>
                                 </div>
 
@@ -234,7 +236,7 @@ export function Gymnastiek() {
                                 <div><img
                                     title="Een kiekje uit Zeeland, waar de Propaganda-Commissie van het N.C.G.V., daarbij geruggesteund door de Zeeuwen zelf, het werk krachtig aanpakt. Bij een turnfeest in Kapelle werden de vereenigingen in het koor van de kerk ontvangen. Bron: Lichaamsoefening 9 okt. 1930, p. 507."
                                     alt="Een kiekje uit Zeeland, waar de Propaganda-Commissie van het N.C.G.V., daarbij geruggesteund door de Zeeuwen zelf, het werk krachtig aanpakt. Bij een turnfeest in Kapelle werden de vereenigingen in het koor van de kerk ontvangen. Bron: Lichaamsoefening 9 okt. 1930, p. 507."
-                                    src="http://www.historici.nl/media/verenigingsleven_sport/jpg/klein/propagandacommissieNCGVinkerk.jpg"/>
+                                    src={vinkerk}/>
                                     <div className="picSubScript">Een kiekje uit Zeeland, waar de Propaganda-Commissie van het N.C.G.V., daarbij geruggesteund door de Zeeuwen zelf, het werk krachtig aanpakt. Bij een turnfeest in Kapelle werden de vereenigingen in het koor van de kerk ontvangen. Bron: Lichaamsoefening 9 okt. 1930, p. 507.</div>
                                 </div>
 

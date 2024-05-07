@@ -1,0 +1,33 @@
+version: '2'
+
+services:
+  elastic:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.1
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+    volumes:
+      - /Users/robzeeman/Documents/DI_code/DATA/sport_db/es_index:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+
+  db:
+    image: postgres:13
+    container_name: isidore_postgres
+    restart: always
+    ports:
+      - "5433:5432"
+    volumes:
+      - /Users/robzeeman/Documents/DI_code/DATA/postgres/sport_db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: isidore
+      POSTGRES_PASSWORD: rambo
+      POSTGRES_DB: isidore
+
+
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - 5000:5000

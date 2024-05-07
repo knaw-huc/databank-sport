@@ -1,4 +1,4 @@
-
+.DS_Store
 /src/browser/node_modules/
 /src/browser/build/
 /src/service/venv/
