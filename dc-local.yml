@@ -1,0 +1,30 @@
+version: '2'
+
+services:
+  sport-elastic:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.1
+    container_name: sport-elastic
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+    volumes:
+      - /Users/robzeeman/Documents/DI_code/DATA/sport_db/es_index:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+    networks:
+      - robz
+
+
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - 80:5000
+    networks:
+      - robz
+
+
+networks:
+  robz:
+    external: false

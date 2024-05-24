@@ -1,20 +1,21 @@
 import json
 import psycopg2
+import os
+
 from psycopg2.extras import RealDictCursor
 
 class Db:
     def __init__(self):
         self.conn = psycopg2.connect(
-            host="localhost",
+            host=os.getenv("SPORT_SERVER", "docker.for.mac.localhost"),
             database="sport",
-            user="robzeeman",
-            password="bonzo"
+            user=os.getenv("POSTGRES_USER", "robzeeman"),
+            password=os.getenv("POSTGRES_PASSWORD", "bonzo")
         )
         self.item = []
 
     def version(self):
         cur = self.conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
-        print('PostgreSQL database version:')
         cur.execute('SELECT version()')
 
         # display the PostgreSQL database server version

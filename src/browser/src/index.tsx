@@ -28,11 +28,12 @@ import {Tennis} from "./components/sport/tennis";
 import {Voetbal} from "./components/sport/voetbal";
 import {Home} from "./components/home";
 import {Inleiding} from "./components/inleiding";
+import {BASE_URL} from "./misc/config";
 
 const header = <Header/>
-const searchLoader = createSearchLoader(searchUtils.getSearchObjectFromParams, 'http://localhost:5000/browse', 10);
+const searchLoader = createSearchLoader(searchUtils.getSearchObjectFromParams, BASE_URL + 'browse', 10);
 const title = 'Databank Sport';
-const detailLoader = createDetailLoader(id => `http://localhost:5000/detail?rec=${id}`);
+const detailLoader = createDetailLoader(id => BASE_URL + `sport?rec=${id}`);
 const routeObject: RouteObject = {
     path: '/',
     element: <App header={header}/>,
