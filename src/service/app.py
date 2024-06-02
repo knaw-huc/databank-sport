@@ -1,12 +1,13 @@
 from flask import Flask, request, jsonify
-import json
+from flask_cors import CORS
 from elastic_index import Index
 from postgres_handler import Db
-import requests
 import os
 
 
 app = Flask(__name__, static_folder='browser', static_url_path='')
+
+CORS(app)
 
 # config = {
 #     "url" : "sport-elastic",
@@ -23,50 +24,42 @@ config = {
 index = Index(config)
 db = Db()
 
-@app.route('/', defaults={'path': ''}, methods=['GET', 'POST'])
-@app.route('/<path>')
-@app.route('/<path>/search')
-@app.route('/<path>/detail')
-@app.route('/<path>/literatuur')
-@app.route('/<path>/colofon')
-@app.route('/<path>/gymnastiek')
-@app.route('/<path>/hockey')
-@app.route('/<path>/korfbal')
-@app.route('/<path>/schaken')
-@app.route('/<path>/tennis')
-@app.route('/<path>/voetbal')
-@app.route('/<path>/inleiding')
-@app.route('/<path>/database')
-def catch_all(path):
+@app.after_request
+def after_request(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Headers'] = '*'
+    response.headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
+    return response
+
+@app.route('/', methods=['GET', 'POST'])
+@app.route('/search')
+@app.route('/literatuur')
+@app.route('/colofon')
+@app.route('/gymnastiek')
+@app.route('/hockey')
+@app.route('/korfbal')
+@app.route('/schaken')
+@app.route('/tennis')
+@app.route('/voetbal')
+@app.route('/inleiding')
+@app.route('/database')
+def catch_all():
     return app.send_static_file("index.html")
 
+@app.route('/detail/<id>')
+def detail(id):
+    return app.send_static_file("index.html")
 
-@app.post("/facet")
+@app.route("/facet", methods=['POST', 'GET'])
 def get_facet():
     struc = request.get_json()
     ret_struc = index.get_facet(struc["name"], struc["amount"], struc["filter"], struc["searchvalues"])
     return jsonify(ret_struc)
 
-@app.route("/nested-facet", methods=['GET'])
-def get_nested_facet():
-    facet = request.args.get("name")
-    amount = request.args.get("amount")
-    facet_filter = request.args.get("filter")
-    ret_struc = index.get_nested_facet(facet + ".keyword", amount, facet_filter)
-    return jsonify(ret_struc)
 
-@app.route("/filter-facet", methods=['GET'])
-def get_filter_facet():
-    facet = request.args.get("name")
-    amount = request.args.get("amount")
-    facet_filter = request.args.get("filter")
-    ret_struc = index.get_filter_facet(facet + ".keyword", amount, facet_filter)
-    return jsonify(ret_struc)
-
-@app.post("/browse")
+@app.route("/browse",  methods=['POST', 'GET'])
 def browse():
     struc = request.get_json()
-    #ret_struc = index.browse(struc["page"], struc["page_length"], struc["sortorder"] + ".keyword", struc["searchvalues"])
     ret_struc = index.browse(struc["page"], struc["page_length"], struc["searchvalues"])
     return jsonify(ret_struc)
 
@@ -88,7 +81,7 @@ def browse():
 
 
 
-@app.get('/sport')
+@app.route('/sport', methods=['GET'])
 def get_sport():
     rec = request.args.get("rec")
     return jsonify(db.detail(rec))

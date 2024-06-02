@@ -31,9 +31,9 @@ import {Inleiding} from "./components/inleiding";
 import {BASE_URL} from "./misc/config";
 
 const header = <Header/>
-const searchLoader = createSearchLoader(searchUtils.getSearchObjectFromParams, BASE_URL + 'browse', 10);
+const searchLoader = createSearchLoader(searchUtils.getSearchObjectFromParams, '/browse', 10);
 const title = 'Databank Sport';
-const detailLoader = createDetailLoader(id => BASE_URL + `sport?rec=${id}`);
+const detailLoader = createDetailLoader(id => `/sport?rec=${id}`);
 const routeObject: RouteObject = {
     path: '/',
     element: <App header={header}/>,

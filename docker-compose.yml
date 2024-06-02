@@ -22,7 +22,7 @@ services:
     environment:
       POSTGRES_USER:
       POSTGRES_PASSWORD:
-      POSTGRES_DB:
+      POSTGRES_DB: sport
     networks:
       - traefik-public
 
@@ -34,8 +34,8 @@ services:
       ES_URI: sport-elastic
       SPORT_SERVER: sport-db
       POSTGRES_USER:
-      POSTGRES_PASSWORD:
-      POSTGRES_DB: 
+      POSTGRES_PASSWORD: 
+      POSTGRES_DB: sport
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.sport-app.loadbalancer.server.port=5000"
