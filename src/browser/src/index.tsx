@@ -12,7 +12,7 @@ import {
     searchUtils,
     SearchParams
 } from '@knaw-huc/browser-base-react';
-import {createBrowserRouter, RouteObject, RouterProvider} from 'react-router-dom';
+import {createBrowserRouter, createHashRouter, RouteObject, RouterProvider} from 'react-router-dom';
 import Facets from "./components/facets";
 import ListItem from "./components/listItem";
 import {Detail} from "./components/detail";
@@ -30,36 +30,38 @@ import {Home} from "./components/home";
 import {Inleiding} from "./components/inleiding";
 import {BASE_URL} from "./misc/config";
 
-const header = <Header/>
-const searchLoader = createSearchLoader(searchUtils.getSearchObjectFromParams, '/browse', 10);
+const header = <></>
+const searchLoader = createSearchLoader(searchUtils.getSearchObjectFromParams, BASE_URL + '/browse', 10);
 const title = 'Databank Sport';
-const detailLoader = createDetailLoader(id => `/sport?rec=${id}`);
+const detailLoader = createDetailLoader(id => `${BASE_URL}/sport?rec=${id}`);
 const routeObject: RouteObject = {
     path: '/',
     element: <App header={header}/>,
     children: [
-        {index: true, element: <Home/> },
+        // {index: true, element: <Home/> },
         {
-        path:"/search",
-        loader: async ({request}) => searchLoader(new URL(request.url).searchParams),
-        element: <Search title={title} pageLength={30} withPaging={true}
-                         hasIndexPage={false} showSearchHeader={false} updateDocumentTitle={false}
-                         searchParams={SearchParams.PARAMS} FacetsComponent={Facets} ResultItemComponent={ListItem}/>
-    }, {
-        path: '/detail/:id',
-        loader: async ({params}) => detailLoader(params.id as string),
-        element: <BrowserDetail title={title} updateDocumentTitle={false} DetailComponent={Detail}/>
-    },
-        { path: '/literatuur', element: <Literatuur/> },
-        { path: '/colofon', element: <Colofon/> },
-        { path: '/gymnastiek', element: <Gymnastiek/>},
-        { path: '/hockey', element: <Hockey/>},
-        { path: '/korfbal', element: <Korfbal/>},
-        { path: '/schaken', element: <Schaken/>},
-        { path: '/tennis', element: <Tennis/>},
-        { path: '/voetbal', element: <Voetbal/>},
-        { path: '/inleiding', element: <Inleiding/>},
-        { path: '/database', element: <DatabaseInfo/>}]
+            // path:"/search",
+            index: true,
+            loader: async ({request}) => searchLoader(new URL(request.url).searchParams),
+            element: <Search title={title} pageLength={30} withPaging={true}
+                             hasIndexPage={false} showSearchHeader={false} updateDocumentTitle={false}
+                             searchParams={SearchParams.PARAMS} FacetsComponent={Facets} ResultItemComponent={ListItem}/>
+        }, {
+            path: '/detail/:id',
+            loader: async ({params}) => detailLoader(params.id as string),
+            element: <BrowserDetail title={title} updateDocumentTitle={false} DetailComponent={Detail}/>
+        },
+        // { path: '/literatuur', element: <Literatuur/> },
+        // { path: '/colofon', element: <Colofon/> },
+        // { path: '/gymnastiek', element: <Gymnastiek/>},
+        // { path: '/hockey', element: <Hockey/>},
+        // { path: '/korfbal', element: <Korfbal/>},
+        // { path: '/schaken', element: <Schaken/>},
+        // { path: '/tennis', element: <Tennis/>},
+        // { path: '/voetbal', element: <Voetbal/>},
+        // { path: '/inleiding', element: <Inleiding/>},
+        // { path: '/database', element: <DatabaseInfo/>}
+    ]
 };
 
 // If you want to start measuring performance in your app, pass a function
@@ -68,6 +70,6 @@ const routeObject: RouteObject = {
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <React.StrictMode>
-        <RouterProvider router={createBrowserRouter([routeObject])}/>
+        <RouterProvider router={createHashRouter([routeObject])}/>
     </React.StrictMode>
 );

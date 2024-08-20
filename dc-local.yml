@@ -8,9 +8,9 @@ services:
       - discovery.type=single-node
       - xpack.security.enabled=false
     volumes:
-      - /Users/robzeeman/Documents/DI_code/DATA/sport_db/es_index:/usr/share/elasticsearch/data
+      - /Users/jarnob/Documents/es_index:/usr/share/elasticsearch/data
     ports:
-      - 9200:9200
+      - "9200:9200"
     networks:
       - robz
 
@@ -19,8 +19,10 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
+    environment:
+      ES_URI: sport-elastic
     ports:
-      - 80:5000
+      - "8090:5000"
     networks:
       - robz
 

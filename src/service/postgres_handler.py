@@ -9,8 +9,8 @@ class Db:
         self.conn = psycopg2.connect(
             host=os.getenv("SPORT_SERVER", "docker.for.mac.localhost"),
             database="sport",
-            user=os.getenv("POSTGRES_USER", "robzeeman"),
-            password=os.getenv("POSTGRES_PASSWORD", "bonzo")
+            user=os.getenv("POSTGRES_USER", "jarnob"),
+            password=os.getenv("POSTGRES_PASSWORD", "")
         )
         self.item = []
 
