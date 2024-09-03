@@ -13,6 +13,7 @@ export function Detail({data}: {data: IDetail[]}) {
             <div className="hcBasicSideMargin">
                 <div className="justify hcMarginBottom1">
                     <h2>{data[0].value}</h2>
+                    <h3>Dit is een test: werkt de build pipeline??</h3>
                     <div className="detailItemTable">
                     {data.map((item, index) => {
                         return (
